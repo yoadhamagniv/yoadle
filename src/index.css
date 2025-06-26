@@ -1,0 +1,40 @@
+.wordle-game {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+input {
+  font-size: 1.2rem;
+  padding: 8px;
+  margin: 10px;
+}
+
+button {
+  font-size: 1.2rem;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.feedback .letter {
+  font-size: 2rem;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: lightgray;
+  color: white;
+}
+
+.feedback .correct {
+  background-color: green;
+}
+
+.feedback .present {
+  background-color: gold;
+}
+
+.feedback .absent {
+  background-color: gray;
+}
