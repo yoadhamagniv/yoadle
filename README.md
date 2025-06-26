@@ -12,7 +12,7 @@ A beautiful Hebrew daily word puzzle game inspired by Wordle, with love-themed d
 
 ## 🚀 Live Demo
 
-[Play Yoadle here](https://[YOUR_USERNAME].github.io/yoadle)
+[Play Yoadle here](https://yoadhamagniv.github.io/yoadle)
 
 ## 🛠️ Local Development
 
@@ -31,9 +31,8 @@ npm run build
 
 This project is configured for GitHub Pages deployment:
 
-1. Replace `[YOUR_USERNAME]` in `package.json` with your GitHub username
-2. Install gh-pages: `npm install gh-pages --save-dev`
-3. Deploy: `npm run deploy`
+1. Install gh-pages: `npm install gh-pages --save-dev`
+2. Deploy: `npm run deploy`
 
 ## 💕 Features
 
