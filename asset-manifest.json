@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/yoadle/static/css/main.b6888f92.css",
-    "main.js": "/yoadle/static/js/main.bd96fd8f.js",
+    "main.js": "/yoadle/static/js/main.69c72cdb.js",
     "index.html": "/yoadle/index.html",
     "main.b6888f92.css.map": "/yoadle/static/css/main.b6888f92.css.map",
-    "main.bd96fd8f.js.map": "/yoadle/static/js/main.bd96fd8f.js.map"
+    "main.69c72cdb.js.map": "/yoadle/static/js/main.69c72cdb.js.map"
   },
   "entrypoints": [
     "static/css/main.b6888f92.css",
-    "static/js/main.bd96fd8f.js"
+    "static/js/main.69c72cdb.js"
   ]
 }
