@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/yoadle/static/css/main.ad45501a.css",
-    "main.js": "/yoadle/static/js/main.e7739815.js",
+    "main.css": "/yoadle/static/css/main.b6888f92.css",
+    "main.js": "/yoadle/static/js/main.bd96fd8f.js",
     "index.html": "/yoadle/index.html",
-    "main.ad45501a.css.map": "/yoadle/static/css/main.ad45501a.css.map",
-    "main.e7739815.js.map": "/yoadle/static/js/main.e7739815.js.map"
+    "main.b6888f92.css.map": "/yoadle/static/css/main.b6888f92.css.map",
+    "main.bd96fd8f.js.map": "/yoadle/static/js/main.bd96fd8f.js.map"
   },
   "entrypoints": [
-    "static/css/main.ad45501a.css",
-    "static/js/main.e7739815.js"
+    "static/css/main.b6888f92.css",
+    "static/js/main.bd96fd8f.js"
   ]
 }
