@@ -8,41 +8,7 @@ import './index.css';
 
 // List of image filenames in public/imgs
 const loveImages = [
-  "WhatsApp Image 2025-05-29 at 21.47.18.jpeg",
-  "WhatsApp Image 2025-05-29 at 21.47.20 (1).jpeg",
-  "WhatsApp Image 2025-05-29 at 21.47.20.jpeg",
-  "WhatsApp Image 2025-06-07 at 21.03.12.jpeg",
-  "WhatsApp Image 2025-06-08 at 20.24.05 (1).jpeg",
-  "WhatsApp Image 2025-06-08 at 20.24.05.jpeg",
-  "WhatsApp Image 2025-06-08 at 20.24.06 (5).jpeg",
-  "WhatsApp Image 2025-06-08 at 20.24.06 (4).jpeg",
-  "WhatsApp Image 2025-06-08 at 20.24.06 (3).jpeg",
-  "WhatsApp Image 2025-06-08 at 20.24.06 (2).jpeg",
-  "WhatsApp Image 2025-06-08 at 20.24.06 (1).jpeg",
-  "WhatsApp Image 2025-06-08 at 20.24.06.jpeg",
-  "WhatsApp Image 2025-06-10 at 11.44.22.jpeg",
-  "WhatsApp Image 2025-06-10 at 23.34.22.jpeg",
-  "WhatsApp Image 2025-06-22 at 13.17.42 (3).jpeg",
-  "WhatsApp Image 2025-06-22 at 13.17.42 (2).jpeg",
-  "WhatsApp Image 2025-06-22 at 13.17.42 (1).jpeg",
-  "WhatsApp Image 2025-06-22 at 13.17.42.jpeg",
-  "WhatsApp Image 2025-06-22 at 13.19.28 (1).jpeg",
-  "WhatsApp Image 2025-06-22 at 13.19.28.jpeg",
-  "WhatsApp Image 2025-06-22 at 13.19.29 (1).jpeg",
-  "WhatsApp Image 2025-06-22 at 13.19.29.jpeg",
-  "WhatsApp Image 2025-06-22 at 13.19.39.jpeg",
-  "WhatsApp Image 2025-06-22 at 13.20.29.jpeg",
-  "WhatsApp Image 2025-06-22 at 13.22.39.jpeg",
-  "WhatsApp Image 2025-06-22 at 13.22.40 (7).jpeg",
-  "WhatsApp Image 2025-06-22 at 13.22.40 (6).jpeg",
-  "WhatsApp Image 2025-06-22 at 13.22.40 (5).jpeg",
-  "WhatsApp Image 2025-06-22 at 13.22.40 (4).jpeg",
-  "WhatsApp Image 2025-06-22 at 13.22.40 (3).jpeg",
-  "WhatsApp Image 2025-06-22 at 13.22.40 (2).jpeg",
-  "WhatsApp Image 2025-06-22 at 13.22.40 (1).jpeg",
-  "WhatsApp Image 2025-06-22 at 13.22.40.jpeg",
-  "WhatsApp Image 2025-06-24 at 01.45.05.jpeg",
-  "WhatsApp Image 2025-06-24 at 01.45.42.jpeg"
+  "pic1.jpeg", "pic2.jpeg", "pic3.jpeg", "pic4.jpeg", "pic5.jpeg", "pic6.jpeg", "pic7.jpeg", "pic8.jpeg", "pic9.jpeg", "pic10.jpeg", "pic11.jpeg", "pic12.jpeg", "pic13.jpeg", "pic14.jpeg", "pic15.jpeg", "pic16.jpeg", "pic17.jpeg", "pic18.jpeg", "pic19.jpeg", "pic20.jpeg", "pic21.jpeg", "pic22.jpeg", "pic23.jpeg", "pic24.jpeg", "pic25.jpeg", "pic26.jpeg", "pic27.jpeg", "pic28.jpeg", "pic29.jpeg", "pic30.jpeg", "pic31.jpeg", "pic32.jpeg", "pic33.jpeg", "pic34.jpeg", "pic35.jpeg"
 ];
 
 const getToday = () => {
@@ -53,6 +19,10 @@ const getToday = () => {
   return `${day}/${month}/${year}`;
 };
 const getDailyWord = () => words[getToday()] || 'אהבה'; // Fallback word
+
+function getMilogUrl(word) {
+  return `https://milog.co.il/${encodeURIComponent(word)}`;
+}
 
 const HEBREW_LETTERS = [
   'ק', 'ר', 'א', 'ט', 'ו', 'ן', 'ם', 'פ',
@@ -110,6 +80,7 @@ export default function App() {
   const [animateRow, setAnimateRow] = useState(-1);
   const [showModal, setShowModal] = useState(false);
   const [modalImg, setModalImg] = useState(null);
+  const [imgError, setImgError] = useState(false);
   const intervalRef = useRef();
 
   // Auto-update daily word
@@ -195,8 +166,11 @@ export default function App() {
 
   const handleLoveNoteClick = () => {
     const idx = Math.floor(Math.random() * loveImages.length);
-    setModalImg(`/imgs/${loveImages[idx]}`);
+    const imgPath = process.env.PUBLIC_URL + `/imgs/${loveImages[idx]}`;
+    setImgError(false);
+    setModalImg(imgPath);
     setShowModal(true);
+    console.log('Trying to show image:', imgPath);
   };
 
   const closeModal = () => setShowModal(false);
@@ -217,10 +191,37 @@ export default function App() {
       {error && <div className="error-message">💔 {error} - אני אוהב אותך ירדנה 💕</div>}
       {gameState === 'won' && <div className="success-message">💕 כל הכבוד! אהבה מנצחת! אני אוהב אותך ירדנה! 💕</div>}
       {gameState === 'lost' && <div className="fail-message">💔 המילה הייתה: <b>{dailyWord}</b> - אבל אני עדיין אוהב אותך ירדנה! 💕</div>}
+      {(gameState === 'won' || gameState === 'lost') && (
+        <a
+          className="milog-btn"
+          href={getMilogUrl(dailyWord)}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-block',
+            margin: '1rem auto',
+            padding: '0.7rem 1.5rem',
+            background: '#fdcb6e',
+            color: '#c44569',
+            borderRadius: '1.2rem',
+            fontWeight: 'bold',
+            fontSize: '1.2rem',
+            textDecoration: 'none',
+            boxShadow: '0 2px 8px rgba(253, 203, 110, 0.3)',
+            transition: 'background 0.2s'
+          }}
+        >
+          פירוש למילה "{dailyWord}"
+        </a>
+      )}
       {showModal && (
         <div className="modal-bg" onClick={closeModal}>
           <div className="modal-img-wrap" onClick={e => e.stopPropagation()}>
-            <img src={modalImg} alt="love" className="modal-img" />
+            {!imgError ? (
+              <img src={modalImg} alt="love" className="modal-img" onError={() => setImgError(true)} />
+            ) : (
+              <div style={{color:'#e84393', fontWeight:'bold', padding:'2rem'}}>התמונה לא נמצאה<br/>{modalImg}</div>
+            )}
             <button className="modal-close" onClick={closeModal}>✖</button>
           </div>
         </div>
