@@ -6,6 +6,45 @@ import { normalizeHebrewLetter } from './utils/normalizeHebrewLetter';
 import { isValidWord } from './utils/validateWord';
 import './index.css';
 
+// List of image filenames in public/imgs
+const loveImages = [
+  "WhatsApp Image 2025-05-29 at 21.47.18.jpeg",
+  "WhatsApp Image 2025-05-29 at 21.47.20 (1).jpeg",
+  "WhatsApp Image 2025-05-29 at 21.47.20.jpeg",
+  "WhatsApp Image 2025-06-07 at 21.03.12.jpeg",
+  "WhatsApp Image 2025-06-08 at 20.24.05 (1).jpeg",
+  "WhatsApp Image 2025-06-08 at 20.24.05.jpeg",
+  "WhatsApp Image 2025-06-08 at 20.24.06 (5).jpeg",
+  "WhatsApp Image 2025-06-08 at 20.24.06 (4).jpeg",
+  "WhatsApp Image 2025-06-08 at 20.24.06 (3).jpeg",
+  "WhatsApp Image 2025-06-08 at 20.24.06 (2).jpeg",
+  "WhatsApp Image 2025-06-08 at 20.24.06 (1).jpeg",
+  "WhatsApp Image 2025-06-08 at 20.24.06.jpeg",
+  "WhatsApp Image 2025-06-10 at 11.44.22.jpeg",
+  "WhatsApp Image 2025-06-10 at 23.34.22.jpeg",
+  "WhatsApp Image 2025-06-22 at 13.17.42 (3).jpeg",
+  "WhatsApp Image 2025-06-22 at 13.17.42 (2).jpeg",
+  "WhatsApp Image 2025-06-22 at 13.17.42 (1).jpeg",
+  "WhatsApp Image 2025-06-22 at 13.17.42.jpeg",
+  "WhatsApp Image 2025-06-22 at 13.19.28 (1).jpeg",
+  "WhatsApp Image 2025-06-22 at 13.19.28.jpeg",
+  "WhatsApp Image 2025-06-22 at 13.19.29 (1).jpeg",
+  "WhatsApp Image 2025-06-22 at 13.19.29.jpeg",
+  "WhatsApp Image 2025-06-22 at 13.19.39.jpeg",
+  "WhatsApp Image 2025-06-22 at 13.20.29.jpeg",
+  "WhatsApp Image 2025-06-22 at 13.22.39.jpeg",
+  "WhatsApp Image 2025-06-22 at 13.22.40 (7).jpeg",
+  "WhatsApp Image 2025-06-22 at 13.22.40 (6).jpeg",
+  "WhatsApp Image 2025-06-22 at 13.22.40 (5).jpeg",
+  "WhatsApp Image 2025-06-22 at 13.22.40 (4).jpeg",
+  "WhatsApp Image 2025-06-22 at 13.22.40 (3).jpeg",
+  "WhatsApp Image 2025-06-22 at 13.22.40 (2).jpeg",
+  "WhatsApp Image 2025-06-22 at 13.22.40 (1).jpeg",
+  "WhatsApp Image 2025-06-22 at 13.22.40.jpeg",
+  "WhatsApp Image 2025-06-24 at 01.45.05.jpeg",
+  "WhatsApp Image 2025-06-24 at 01.45.42.jpeg"
+];
+
 const getToday = () => {
   const today = new Date();
   const day = String(today.getDate()).padStart(2, '0');
@@ -69,6 +108,8 @@ export default function App() {
   const [gameState, setGameState] = useState('playing'); // 'playing', 'won', 'lost'
   const [error, setError] = useState('');
   const [animateRow, setAnimateRow] = useState(-1);
+  const [showModal, setShowModal] = useState(false);
+  const [modalImg, setModalImg] = useState(null);
   const intervalRef = useRef();
 
   // Auto-update daily word
@@ -152,11 +193,19 @@ export default function App() {
     return () => window.removeEventListener('keydown', handlePhysicalKey);
   }, [handleKeyPress]);
 
+  const handleLoveNoteClick = () => {
+    const idx = Math.floor(Math.random() * loveImages.length);
+    setModalImg(`/imgs/${loveImages[idx]}`);
+    setShowModal(true);
+  };
+
+  const closeModal = () => setShowModal(false);
+
   return (
     <div className="yoadle-container">
       <h1>💕 יועדל - Yoadle 💕</h1>
       <div className="subtitle">נחשו את מילת האהבה של היום! 💖 ({dailyWord.length} אותיות)</div>
-      <div className="love-note">💕 אני אוהב אותך ירדנה 💕</div>
+      <div className="love-note" onClick={handleLoveNoteClick} style={{cursor:'pointer'}} title="לחצו להפתעה!">💕 אני אוהב אותך ירדנה 💕</div>
       <Board
         guesses={guesses}
         feedbacks={feedbacks}
@@ -168,6 +217,14 @@ export default function App() {
       {error && <div className="error-message">💔 {error} - אני אוהב אותך ירדנה 💕</div>}
       {gameState === 'won' && <div className="success-message">💕 כל הכבוד! אהבה מנצחת! אני אוהב אותך ירדנה! 💕</div>}
       {gameState === 'lost' && <div className="fail-message">💔 המילה הייתה: <b>{dailyWord}</b> - אבל אני עדיין אוהב אותך ירדנה! 💕</div>}
+      {showModal && (
+        <div className="modal-bg" onClick={closeModal}>
+          <div className="modal-img-wrap" onClick={e => e.stopPropagation()}>
+            <img src={modalImg} alt="love" className="modal-img" />
+            <button className="modal-close" onClick={closeModal}>✖</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
